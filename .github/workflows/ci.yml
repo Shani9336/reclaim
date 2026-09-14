@@ -1,0 +1,66 @@
+name: FoundIt CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  lint-and-test-frontend:
+    name: Frontend Quality & Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: foundit/package.json
+
+      - name: Install dependencies
+        working-directory: ./foundit
+        run: npm ci
+
+      - name: Generate Prisma Client
+        working-directory: ./foundit
+        run: npx prisma generate
+        env:
+          DATABASE_URL: "postgresql://mock:mock@localhost:5432/mock"
+
+      - name: Type check
+        working-directory: ./foundit
+        run: npm run typecheck
+
+      - name: Run unit tests
+        working-directory: ./foundit
+        run: npm run test
+
+  test-matching-engine:
+    name: Matching Engine Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: foundit/services/matching-engine/requirements.txt
+
+      - name: Install dependencies
+        working-directory: ./foundit/services/matching-engine
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run pytest
+        working-directory: ./foundit/services/matching-engine
+        run: pytest tests/ -v
