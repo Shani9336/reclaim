@@ -13,6 +13,8 @@ import {
   TrendingUp, Users, MapPin, BarChart3, AlertCircle
 } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminDashboardPage() {
   const session = await getServerSession(authOptions);
   const isLeader = session?.user?.email?.toLowerCase() === 'shaniyadav777am@gmail.com';

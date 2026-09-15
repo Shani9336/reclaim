@@ -20,6 +20,8 @@ const CATEGORY_EMOJI: Record<string, string> = {
   BAGS: '👜', JEWELRY: '💍', CLOTHING: '👕', OTHER: '📦',
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function ItemDetailPage({ params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
 

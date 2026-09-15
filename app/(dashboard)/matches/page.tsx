@@ -11,6 +11,8 @@ import { cn } from '@/lib/utils';
 import { scanAllDatabaseMatches } from '@/lib/matchingEngine';
 import { RescanMatchesButton } from '@/components/matches/RescanMatchesButton';
 
+export const dynamic = 'force-dynamic';
+
 export default async function MatchesPage() {
   const session = await getServerSession(authOptions);
   if (!session?.user) redirect('/login');

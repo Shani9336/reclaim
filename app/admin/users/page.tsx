@@ -8,6 +8,8 @@ export const metadata = {
   title: 'User Roles & Admin Control — ReClaim',
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminUsersPage() {
   const session = await getServerSession(authOptions);
 

@@ -4,6 +4,8 @@ import { prisma } from '@/lib/prisma';
 import { redirect } from 'next/navigation';
 import { AdminItemsClient } from '@/components/admin/AdminItemsClient';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminItemsPage({
   searchParams,
 }: {

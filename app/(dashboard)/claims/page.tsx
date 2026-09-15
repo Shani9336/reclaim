@@ -14,6 +14,8 @@ const STATUS_VARIANT: Record<string, string> = {
   REJECTED: 'destructive',
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function ClaimsPage() {
   const session = await getServerSession(authOptions);
   if (!session?.user) redirect('/login');

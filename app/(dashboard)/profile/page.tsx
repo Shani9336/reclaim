@@ -10,6 +10,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Package, Clock, CheckCircle, AlertCircle, User, MapPin, ShieldCheck } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 export default async function ProfilePage() {
   const session = await getServerSession(authOptions);
   if (!session?.user) redirect('/login');

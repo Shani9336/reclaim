@@ -4,6 +4,8 @@ import { prisma } from '@/lib/prisma';
 import { redirect } from 'next/navigation';
 import { AdminClaimsClient } from '@/components/admin/AdminClaimsClient';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminClaimsPage() {
   const session = await getServerSession(authOptions);
   const isLeader = session?.user?.email?.toLowerCase() === 'shaniyadav777am@gmail.com';
