@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
@@ -18,7 +18,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
 
-export default function NewClaimPage() {
+function NewClaimContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const itemId = searchParams.get('itemId');
@@ -226,5 +226,13 @@ export default function NewClaimPage() {
       </form>
     </div>
   </div>
+  );
+}
+
+export default function NewClaimPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="animate-spin h-8 w-8 border-2 border-primary border-t-transparent rounded-full" /></div>}>
+      <NewClaimContent />
+    </Suspense>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { ItemCard } from '@/components/items/ItemCard';
@@ -38,6 +38,14 @@ interface ItemsResponse {
 }
 
 export default function BrowsePage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="animate-spin h-8 w-8 border-2 border-primary border-t-transparent rounded-full" /></div>}>
+      <BrowseContent />
+    </Suspense>
+  );
+}
+
+function BrowseContent() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
