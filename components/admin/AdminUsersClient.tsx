@@ -245,11 +245,17 @@ export function AdminUsersClient({ initialUsers, currentUserEmail }: AdminUsersC
                                 alt={u.name || ''}
                                 width={36}
                                 height={36}
-                                className="rounded-full ring-1 ring-border shrink-0"
+                                className="rounded-full ring-2 ring-red-300 shrink-0 object-cover"
+                                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                               />
                             ) : (
-                              <div className="h-9 w-9 rounded-full bg-red-100 dark:bg-red-950/50 text-red-600 dark:text-red-300 font-bold text-xs flex items-center justify-center shrink-0">
-                                {u.name?.[0]?.toUpperCase() || u.email[0]?.toUpperCase()}
+                              <div
+                                className="h-9 w-9 rounded-full flex items-center justify-center shrink-0 font-bold text-sm text-white shadow-sm ring-2 ring-offset-1 ring-red-300"
+                                style={{
+                                  background: `hsl(${(u.name || u.email).charCodeAt(0) * 7 % 360}, 65%, 52%)`
+                                }}
+                              >
+                                {(u.name?.[0] || u.email[0]).toUpperCase()}
                               </div>
                             )}
                             <div className="min-w-0">

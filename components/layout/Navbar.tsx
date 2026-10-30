@@ -95,23 +95,22 @@ export function Navbar() {
             <>
               <NotificationBell />
               <div className="flex items-center gap-2">
-                {session.user.image ? (
-                  <Link href="/profile">
+                <Link href="/profile" title={session.user.name || session.user.email || 'Profile'}>
+                  {session.user.image ? (
                     <Image
                       src={session.user.image}
                       alt={session.user.name || 'User'}
                       width={32}
                       height={32}
-                      className="rounded-full cursor-pointer hover:opacity-80 transition-opacity ring-1 ring-border"
+                      className="rounded-full cursor-pointer hover:opacity-80 transition-opacity ring-2 ring-red-400"
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                     />
-                  </Link>
-                ) : (
-                  <Link href="/profile">
-                    <div className="h-8 w-8 rounded-full bg-red-500/20 text-red-600 dark:text-red-300 flex items-center justify-center cursor-pointer font-bold text-xs ring-1 ring-red-300">
-                      {session.user.name?.[0]?.toUpperCase() || 'U'}
+                  ) : (
+                    <div className="h-8 w-8 rounded-full bg-gradient-to-br from-red-500 to-rose-600 text-white flex items-center justify-center cursor-pointer font-bold text-sm ring-2 ring-red-400 hover:ring-red-500 shadow-sm transition-all hover:scale-105">
+                      {(session.user.name?.[0] || session.user.email?.[0] || 'U').toUpperCase()}
                     </div>
-                  </Link>
-                )}
+                  )}
+                </Link>
                 {['ADMIN', 'SUPER_ADMIN'].includes(session.user.role) && (
                   <Link href="/admin">
                     <Button
